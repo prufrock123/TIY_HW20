@@ -31,15 +31,24 @@ function EtsyClient(options) {
 }
 
 // Get data functions
-	// Get all active listings.
+	// Get all active listings. Also added an includes to get the images FUCKYAAAAA.
 		EtsyClient.prototype.getAllActiveListings = function() {
 		    var model = 'listings/'; // the forward slash was missing from the notes code.
 		    var filter = 'active';
-		    return $.getJSON(this.complete_api_url + model + filter + ".js?api_key=" + this.api_key + "&callback=?").then(function(data) {
+		    return $.getJSON(this.complete_api_url + model + filter + ".js?includes=Images(url_75x75)&api_key=" + this.api_key + "&callback=?").then(function(data) {
 		        // console.log(data);
 		        return data;
 		    });
 		};
+
+		// EtsyClient.prototype.getAllActiveListings = function() {
+		//     var model = 'listings/'; // the forward slash was missing from the notes code.
+		//     var filter = 'active';
+		//     return $.getJSON(this.complete_api_url + model + filter + ".js?api_key=" + this.api_key + "?includes=" + "&callback=?").then(function(data) {
+		//         console.log(data);
+		//         // return data;
+		//     });
+		// };
 
 
 	// Get individual listing
