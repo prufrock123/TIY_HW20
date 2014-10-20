@@ -41,23 +41,25 @@ function EtsyClient(options) {
 		    });
 		};
 
-		// EtsyClient.prototype.getAllActiveListings = function() {
-		//     var model = 'listings/'; // the forward slash was missing from the notes code.
-		//     var filter = 'active';
-		//     return $.getJSON(this.complete_api_url + model + filter + ".js?api_key=" + this.api_key + "?includes=" + "&callback=?").then(function(data) {
-		//         console.log(data);
-		//         // return data;
-		//     });
-		// };
-
 
 	// Get individual listing
-		// EtsyClient.prototype.getListingInfo = function(id) {
-		//     var model = 'listings';
-		//     return $.getJSON(this.complete_api_url + model + '/' + id + ".js?api_key=" + this.api_key + "&callback=?").then(function(data) {
-		//         console.log(data);
-		//     });
-		// };
+		EtsyClient.prototype.getListingInfo = function() {
+		    var etsyId = this.listing_id
+		    var model = 'listings/'; // the forward slash was missing from the notes code.
+		    var filter = etsyId;
+		    return $.getJSON(this.complete_api_url + model + filter + ".js?api_key=" + "ab2ph0vvjrfql5ppli3pucmw" + "&callback=?").then(function(data) {
+		        console.log(data);
+		        // return data;
+		    });
+		};
+
+
+
+
+
+
+
+
 
 // Get HTML templates function
 	EtsyClient.prototype.loadTemplateFile = function(templateName) {
@@ -78,6 +80,15 @@ function EtsyClient(options) {
 				return _.template(html, element);
 			}).join("");
 		};
+
+	// Add single listing to page
+		EtsyClient.prototype.addSingleListingToPage = function(html, data){
+			console.log(data);
+			document.querySelector('#home').innerHTML =
+			data.map(function(element){
+				return _.template(html, element);
+			}).join("");
+		};
 	
 	
 
@@ -91,6 +102,16 @@ EtsyClient.prototype.init = function() {
 	});
 };
 
+EtsyClient.prototype.singleProduct = function() {
+	var self = this;
+	$.when(
+		this.getListingInfo(),
+		this.loadTemplateFile('singleListing')
+	).then(function(){
+		self.addSingleListingToPage(singleListingHtml, singleListing)
+	});
+};
+
 window.onload = app;
 
 function app() {
@@ -98,9 +119,9 @@ function app() {
 }
 
 
+$(".etsyItem").click(EtsyClient.prototype.getListingInfo());
 
-
-
+// var etsyId = $(".etsyItem").click(function(){$(this).listing_id;});
 
 
 
