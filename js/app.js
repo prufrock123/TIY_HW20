@@ -6,9 +6,9 @@ function app() {
 
     // load some scripts (uses promises :D)
     loader.load({
-        url: "./bower_components/jquery/dist/jquer.min.js"
+        url: "./bower_components/jquery/dist/jquery.min.js"
     }, {
-        url: "./bower_components/jquery/dist/lodash.min.js"
+        url: "./bower_components/lodash/dist/lodash.min.js"
     }, {
         url: "./bower_components/pathjs/path.min.js"
     }, {
@@ -87,7 +87,7 @@ EtsyClient.prototype.drawListings = function(templateString, data) {
 EtsyClient.prototype.drawSingleListing = function(templateString, data) {
 	var single = document.querySelector("#home");
 
-	var bigHtmlString = _.template(template, listing);
+	var bigHtmlString = _.template(templateString, data.results[0]);
 
 	single.innerHTML = bigHtmlString;
 }
@@ -126,14 +126,14 @@ EtsyClient.prototype.setupRouting = function() {
 //mine
 	// Add data to HTML functions
 	// Add all active listings on page
-	EtsyClient.prototype.addAllActiveListingsToPage = function(html, data) {
-	    // console.log(data);
-	    // console.log(html);
-	    document.querySelector('#all_listings').innerHTML =
-	        data.results.map(function(element) {
-	            return _.template(html, element);
-	        }).join("");
-	};
+	// EtsyClient.prototype.addAllActiveListingsToPage = function(html, data) {
+	//     // console.log(data);
+	//     // console.log(html);
+	//     document.querySelector('#all_listings').innerHTML =
+	//         data.results.map(function(element) {
+	//             return _.template(html, element);
+	//         }).join("");
+	// };
 
 // First try
 	// _.templateSettings.interpolate = /{([\s\S]+?)}/g;
