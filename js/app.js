@@ -41,9 +41,9 @@ function EtsyClient(options) {
 
 EtsyClient.prototype.pullAllActiveListings = function() {
     return $.getJSON(
-            this.complete_api_url + "listings/active.js?api_key=" + this.api_key + "&includes=Images&callback=?"
-        )
+            this.complete_api_url + "listings/active.js?api_key=" + this.api_key + "&includes=Images&callback=?")
         .then(function(data) {
+            console.log(data);
             return data;
         });
 }
@@ -51,6 +51,7 @@ EtsyClient.prototype.pullAllActiveListings = function() {
 EtsyClient.prototype.pullSingleListing = function(id) {
     return $.getJSON(this.complete_api_url + "listings/" + id + ".js?api_key=" + this.api_key + "&includes=Images&callback=?")
         .then(function(data) {
+            console.log(data);
             return data;
         });
 }
